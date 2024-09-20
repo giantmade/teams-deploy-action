@@ -40,7 +40,7 @@ json_payload=$(cat << EOF
                     {
                         "type": "Action.OpenUrl",
                         "title": "View Progress",
-                        "url": "https://www.example.com"
+                        "url": "${PROGRESS_URL}"
                     }
                     $([ -n "${DEPLOYMENT_URL}" ] && echo ',
                     {

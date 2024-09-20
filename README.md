@@ -12,6 +12,7 @@ It provides information about the repository, branch, initiator, and optionally,
 - `initiator`: The user who initiated the deployment.
 - `teams_webhook_url`: The URL of the Teams Webhook.
 - `message`: Message to display in the notification.
+- `progress_url`: URL to view the action progress.
 
 ### Optional
 - `deployment_url`: The URL of the deployment (if available).
@@ -46,17 +47,19 @@ jobs:
           branch_name: ${{ github.ref_name }}
           initiator: ${{ github.actor }}
           teams_webhook_url: ${{ secrets.TEAMS_WEBHOOK_URL }}
-          message: "Deploying new app!"
+          message: "Deploying new version of"
+          progress_url: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           deployment_url: https://your-deployment-url.com  # Optional
 ```
 
 ## How it works
 
-1. The action takes in the required inputs: repository name, branch name, initiator, Teams webhook URL, and the custom message.
+1. The action takes in the required inputs: repository name, branch name, initiator, Teams webhook URL, custom message, and progress URL.
 2. It creates an Adaptive Card message with the deployment information, using the provided message.
-3. If a deployment URL is provided, it adds a "View Site" button to the card.
-4. The message is sent to the specified Teams channel using the webhook URL.
-5. The HTTP response from the Teams API is set as an output, which can be used in subsequent steps if needed.
+3. The card includes a "View Progress" button that links to the action's progress URL.
+4. If a deployment URL is provided, it adds a "View Site" button to the card.
+5. The message is sent to the specified Teams channel using the webhook URL.
+6. The HTTP response from the Teams API is set as an output, which can be used in subsequent steps if needed.
 
 ## Note
 

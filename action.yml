@@ -20,6 +20,9 @@ inputs:
   message:
     description: 'Message to display in the notification.'
     required: true
+  progress_url:
+    description: 'URL to view the action progress.'
+    required: true
 outputs:
   http_response:
     description: 'The HTTP response from the Teams Webhook'
@@ -33,3 +36,4 @@ runs:
     DEPLOYMENT_URL: ${{ inputs.deployment_url }}
     TEAMS_WEBHOOK_URL: ${{ inputs.teams_webhook_url }}
     MESSAGE: ${{ inputs.message }}
+    PROGRESS_URL: ${{ inputs.progress_url }}
