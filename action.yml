@@ -1,0 +1,35 @@
+# action.yml
+name: 'Teams Notification'
+description: 'Post a status message to a Teams channel.'
+inputs:
+  repository_name:
+    description: 'The name of the repository.'
+    required: true
+  branch_name:
+    description: 'The name of the branch.'
+    required: true
+  initiator:
+    description: 'The user who initiated the deployment.'
+    required: true
+  deployment_url:
+    description: 'The URL of the deployment.'
+    required: false
+  teams_webhook_url:
+    description: 'The URL of the Teams Webhook.'
+    required: true
+  message:
+    description: 'Message to display in the notification.'
+    required: true
+outputs:
+  http_response:
+    description: 'The HTTP response from the Teams Webhook'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  env:
+    REPOSITORY_NAME: ${{ inputs.repository_name }}
+    BRANCH_NAME: ${{ inputs.branch_name }}
+    INITIATOR: ${{ inputs.initiator }}
+    DEPLOYMENT_URL: ${{ inputs.deployment_url }}
+    TEAMS_WEBHOOK_URL: ${{ inputs.teams_webhook_url }}
+    MESSAGE: ${{ inputs.message }}
