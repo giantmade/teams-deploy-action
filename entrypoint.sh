@@ -27,12 +27,11 @@ json_payload=$(cat << EOF
                             {
                                 "title": "Branch:",
                                 "value": "${BRANCH_NAME}"
-                            }
-                            $([ -n "${DEPLOYMENT_URL}" ] && echo ',
+                            },
                             {
                                 "title": "Deployment URL:",
-                                "value": "'${DEPLOYMENT_URL}'"
-                            }')
+                                "value": $([ -n "${DEPLOYMENT_URL}" ] && echo '"'${DEPLOYMENT_URL}'"' || echo '"Not set. Set the repository secret [BRANCH_NAME]_DEPLOYMENT_URL to enable."')
+                            }
                         ]
                     }
                 ],
@@ -47,6 +46,11 @@ json_payload=$(cat << EOF
                         "type": "Action.OpenUrl",
                         "title": "View Site",
                         "url": "'${DEPLOYMENT_URL}'"
+                    }' || echo ',
+                    {
+                        "type": "Action.OpenUrl",
+                        "title": "Setup Deployment URL",
+                        "url": "'${VARIABLE_SETUP_URL}'"
                     }')
                 ]
             }
