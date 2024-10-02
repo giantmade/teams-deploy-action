@@ -33,7 +33,8 @@ runs:
     REPOSITORY_NAME: ${{ inputs.repository_name }}
     BRANCH_NAME: ${{ inputs.branch_name }}
     INITIATOR: ${{ inputs.initiator }}
-    DEPLOYMENT_URL: ${{ inputs.deployment_url }}
+    DEPLOYMENT_URL: ${{ vars[format('{0}_DEPLOYMENT_URL', inputs.branch_name)] || '' }}
     TEAMS_WEBHOOK_URL: ${{ inputs.teams_webhook_url }}
     MESSAGE: ${{ inputs.message }}
     PROGRESS_URL: ${{ inputs.progress_url }}
+    VARIABLE_SETUP_URL: https://github.com/${{ github.repository_owner }}/${{ inputs.repository_name }}/settings/variables/actions/new
